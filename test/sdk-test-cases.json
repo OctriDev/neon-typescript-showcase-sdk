@@ -6252,7 +6252,8 @@
       "results": ["objects"],
       "cursor": {
         "request": "cursor",
-        "response": ["next_cursor"]
+        "response": ["next_cursor"],
+        "hasMore": ["is_truncated"]
       }
     }
   },

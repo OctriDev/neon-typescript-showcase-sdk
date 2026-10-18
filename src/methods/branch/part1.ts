@@ -11,25 +11,14 @@ import {
   BranchSchemaResponse,
   BranchUpdateRequest,
   BranchesCountResponse,
-  ConnectionURIsOptionalResponse,
+  CreateBranchResponse,
+  GetBranchResponse,
+  ListBranchResponse,
   MaskingRulesResponse,
   MaskingRulesUpdateRequest,
 } from "../../types/branch";
-import {
-  AnnotationCreateValueRequest,
-  AnnotationResponse,
-  AnnotationsMapResponse,
-} from "../../types/branch/models";
-import { BranchResponse } from "../../types/shared-branch";
-import {
-  BranchesResponse,
-  DatabasesResponse,
-  EndpointsResponse,
-  GeneralError,
-  OperationsResponse,
-  RolesResponse,
-} from "../../types/shared";
-import { CursorPaginationResponse } from "../../types/shared-cursor";
+import { AnnotationCreateValueRequest } from "../../types/branch/models";
+import { GeneralError, OperationsResponse } from "../../types/shared";
 import { decodeResponseEnums } from "../../response-enum-validation";
 import type { ClientConfig, RequestOptions } from "../../client";
 import {
@@ -58,24 +47,10 @@ export async function createBranch(
   config: ClientConfig,
   { projectId, body }: CreateBranchParams,
   requestOptions?: RequestOptions,
-): Promise<
-  BranchResponse &
-    EndpointsResponse &
-    OperationsResponse &
-    RolesResponse &
-    DatabasesResponse &
-    ConnectionURIsOptionalResponse
-> {
+): Promise<CreateBranchResponse> {
   validatePattern("project_id", projectId, "^[a-z0-9-]{1,60}$");
 
-  const _resp = await sdkRequest<
-    BranchResponse &
-      EndpointsResponse &
-      OperationsResponse &
-      RolesResponse &
-      DatabasesResponse &
-      ConnectionURIsOptionalResponse
-  >({
+  const _resp = await sdkRequest<CreateBranchResponse>({
     method: "POST",
     path: `/projects/${encodePathSegment(projectId)}/branches`,
     operationId: "createBranch",
@@ -89,23 +64,9 @@ export async function createBranch(
     _resp,
     () =>
       fromWire(
-        decodeResponseEnums(_resp.data, {
-          allOf: [
-            { ref: "BranchResponse" },
-            { ref: "EndpointsResponse" },
-            { ref: "OperationsResponse" },
-            { ref: "RolesResponse" },
-            { ref: "DatabasesResponse" },
-            { ref: "ConnectionURIsOptionalResponse" },
-          ],
-        }),
-        "createBranch response",
-      ) as BranchResponse &
-        EndpointsResponse &
-        OperationsResponse &
-        RolesResponse &
-        DatabasesResponse &
-        ConnectionURIsOptionalResponse,
+        decodeResponseEnums(_resp.data, { ref: "CreateBranchResponse" }),
+        "CreateBranchResponse",
+      ) as CreateBranchResponse,
   );
 }
 
@@ -143,16 +104,14 @@ export async function listBranch(
   config: ClientConfig,
   { projectId, search, sortBy, cursor, sortOrder, limit, includeDeleted }: ListBranchParams,
   requestOptions?: RequestOptions,
-): Promise<BranchesResponse & AnnotationsMapResponse & CursorPaginationResponse> {
+): Promise<ListBranchResponse> {
   validatePattern("project_id", projectId, "^[a-z0-9-]{1,60}$");
 
   if (limit != null) {
     validateRange("limit", limit, { min: 1, max: 10000 });
   }
 
-  const _resp = await sdkRequest<
-    BranchesResponse & AnnotationsMapResponse & CursorPaginationResponse
-  >({
+  const _resp = await sdkRequest<ListBranchResponse>({
     method: "GET",
     path: `/projects/${encodePathSegment(projectId)}/branches`,
     operationId: "listBranch",
@@ -169,10 +128,13 @@ export async function listBranch(
     },
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, {
-      allOf: [{ ref: "BranchesResponse" }, { ref: "AnnotationsMapResponse" }],
-    }),
+  return sdkDecode(
+    _resp,
+    () =>
+      fromWire(
+        decodeResponseEnums(_resp.data, { ref: "ListBranchResponse" }),
+        "ListBranchResponse",
+      ) as ListBranchResponse,
   );
 }
 
@@ -194,24 +156,10 @@ export async function createBranchAnonymized(
   config: ClientConfig,
   { projectId, body }: CreateBranchAnonymizedParams,
   requestOptions?: RequestOptions,
-): Promise<
-  BranchResponse &
-    EndpointsResponse &
-    OperationsResponse &
-    RolesResponse &
-    DatabasesResponse &
-    ConnectionURIsOptionalResponse
-> {
+): Promise<CreateBranchResponse> {
   validatePattern("project_id", projectId, "^[a-z0-9-]{1,60}$");
 
-  const _resp = await sdkRequest<
-    BranchResponse &
-      EndpointsResponse &
-      OperationsResponse &
-      RolesResponse &
-      DatabasesResponse &
-      ConnectionURIsOptionalResponse
-  >({
+  const _resp = await sdkRequest<CreateBranchResponse>({
     method: "POST",
     path: `/projects/${encodePathSegment(projectId)}/branch_anonymized`,
     operationId: "createBranchAnonymized",
@@ -225,23 +173,9 @@ export async function createBranchAnonymized(
     _resp,
     () =>
       fromWire(
-        decodeResponseEnums(_resp.data, {
-          allOf: [
-            { ref: "BranchResponse" },
-            { ref: "EndpointsResponse" },
-            { ref: "OperationsResponse" },
-            { ref: "RolesResponse" },
-            { ref: "DatabasesResponse" },
-            { ref: "ConnectionURIsOptionalResponse" },
-          ],
-        }),
-        "createBranchAnonymized response",
-      ) as BranchResponse &
-        EndpointsResponse &
-        OperationsResponse &
-        RolesResponse &
-        DatabasesResponse &
-        ConnectionURIsOptionalResponse,
+        decodeResponseEnums(_resp.data, { ref: "CreateBranchResponse" }),
+        "CreateBranchResponse",
+      ) as CreateBranchResponse,
   );
 }
 
@@ -277,9 +211,7 @@ export async function countBranch(
     },
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, { allOf: [{ ref: "BranchesCountResponse" }] }),
-  );
+  return sdkDecode(_resp, () => decodeResponseEnums(_resp.data, { ref: "BranchesCountResponse" }));
 }
 
 export type GetBranchError = GeneralError;
@@ -299,12 +231,12 @@ export async function getBranch(
   config: ClientConfig,
   { projectId, branchId }: GetBranchParams,
   requestOptions?: RequestOptions,
-): Promise<BranchResponse & AnnotationResponse> {
+): Promise<GetBranchResponse> {
   validatePattern("project_id", projectId, "^[a-z0-9-]{1,60}$");
 
   validatePattern("branch_id", branchId, "^[a-z0-9-]{1,60}$");
 
-  const _resp = await sdkRequest<BranchResponse & AnnotationResponse>({
+  const _resp = await sdkRequest<GetBranchResponse>({
     method: "GET",
     path: `/projects/${encodePathSegment(projectId)}/branches/${encodePathSegment(branchId)}`,
     operationId: "getBranch",
@@ -313,10 +245,13 @@ export async function getBranch(
     ...requestOptions,
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, {
-      allOf: [{ ref: "BranchResponse" }, { ref: "AnnotationResponse" }],
-    }),
+  return sdkDecode(
+    _resp,
+    () =>
+      fromWire(
+        decodeResponseEnums(_resp.data, { ref: "GetBranchResponse" }),
+        "GetBranchResponse",
+      ) as GetBranchResponse,
   );
 }
 

@@ -2,13 +2,9 @@
 // This file is machine-generated from your OpenAPI spec.
 
 import { GeneralError, VPCEndpointsResponse } from "../../types/shared";
-import {
-  AddProjectJWKSRequest,
-  ConnectionURIResponse,
-  JWKS,
-  JWKSCreationOperation,
-  ProjectJWKSResponse,
-} from "../../types/project";
+import { ProjectJWKSResponse } from "../../types/project-project";
+import { AddProjectJWKSRequest, JWKS, JWKSCreationOperation } from "../../types/project";
+import { ConnectionURIResponse } from "../../types/project-connection";
 import { VPCEndpointAssignment } from "../../types/shared-vpcendpoint";
 import { decodeResponseEnums } from "../../response-enum-validation";
 import type { ClientConfig, RequestOptions } from "../../client";

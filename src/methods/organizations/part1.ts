@@ -11,6 +11,7 @@ import {
   VPCEndpointsResponse,
 } from "../../types/shared";
 import {
+  ListOrganizationsMembersResponse,
   Member,
   OrgApiKeyCreateRequest,
   OrgApiKeyCreateResponse,
@@ -19,13 +20,11 @@ import {
   OrganizationInvitationsResponse,
   OrganizationInvitesCreateRequest,
   OrganizationMemberUpdateRequest,
-  OrganizationMembersResponse,
   SpendingLimitResponse,
   SpendingLimitUpdateRequest,
   VPCEndpointDetails,
   VPCEndpointsWithRegionResponse,
 } from "../../types/organizations";
-import { CursorPaginationResponse } from "../../types/shared-cursor";
 import { VPCEndpointAssignment } from "../../types/shared-vpcendpoint";
 import { decodeResponseEnums } from "../../response-enum-validation";
 import type { ClientConfig, RequestOptions } from "../../client";
@@ -335,14 +334,14 @@ export async function listOrganizationsMembers(
   config: ClientConfig,
   { orgId, sortBy, cursor, sortOrder, limit }: ListOrganizationsMembersParams,
   requestOptions?: RequestOptions,
-): Promise<OrganizationMembersResponse & CursorPaginationResponse> {
+): Promise<ListOrganizationsMembersResponse> {
   validatePattern("org_id", orgId, "^[a-z0-9-]{1,60}$");
 
   if (limit != null) {
     validateRange("limit", limit, { min: 1, max: 500 });
   }
 
-  const _resp = await sdkRequest<OrganizationMembersResponse & CursorPaginationResponse>({
+  const _resp = await sdkRequest<ListOrganizationsMembersResponse>({
     method: "GET",
     path: `/organizations/${encodePathSegment(orgId)}/members`,
     operationId: "listOrganizationsMembers",
@@ -357,8 +356,13 @@ export async function listOrganizationsMembers(
     },
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, { allOf: [{ ref: "OrganizationMembersResponse" }] }),
+  return sdkDecode(
+    _resp,
+    () =>
+      fromWire(
+        decodeResponseEnums(_resp.data, { ref: "ListOrganizationsMembersResponse" }),
+        "ListOrganizationsMembersResponse",
+      ) as ListOrganizationsMembersResponse,
   );
 }
 

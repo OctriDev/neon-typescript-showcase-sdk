@@ -224,6 +224,8 @@ export async function* listBucketsObjects(
     const _items = _page.objects ?? [];
     if (_items.length === 0) break;
     for (const item of _items) yield item;
+    if (!_page.isTruncated) break;
+
     const _next = _page.nextCursor;
     if (_next == null || _next === _cursor) break;
     _cursor = _next;
@@ -241,7 +243,7 @@ export async function* listBucketsObjectsPages(
     const _items = _page.objects ?? [];
     if (_items.length === 0) break;
     const _next = _page.nextCursor;
-    const _hasMore = !(_next == null || _next === _cursor);
+    const _hasMore = !(!_page.isTruncated || _next == null || _next === _cursor);
     yield new SdkPage(_page, _items, _hasMore);
     if (!_hasMore || _next == null) break;
     _cursor = _next;

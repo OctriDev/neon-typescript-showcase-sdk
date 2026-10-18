@@ -413,3 +413,106 @@ export function createFunctionDeployRequest(
 ): Types.FunctionDeployRequest {
   return modelRuntime.validate({ ...value }, "FunctionDeployRequest");
 }
+
+/** Constructs a validated ListProjectsResponse model value. */
+export function createListProjectsResponse(
+  value: Types.ListProjectsResponse,
+): Types.ListProjectsResponse {
+  return modelRuntime.validate(value, "ListProjectsResponse");
+}
+
+/** Constructs a validated CreateProjectResponse model value. */
+export function createCreateProjectResponse(
+  value: Types.CreateProjectResponse,
+): Types.CreateProjectResponse {
+  return modelRuntime.validate(value, "CreateProjectResponse");
+}
+
+/** Constructs a validated ListSharedProjectsResponse model value. */
+export function createListSharedProjectsResponse(
+  value: Types.ListSharedProjectsResponse,
+): Types.ListSharedProjectsResponse {
+  return modelRuntime.validate(value, "ListSharedProjectsResponse");
+}
+
+/** Constructs a validated UpdateProjectResponse model value. */
+export function createUpdateProjectResponse(
+  value: Types.UpdateProjectResponse,
+): Types.UpdateProjectResponse {
+  return modelRuntime.validate(value, "UpdateProjectResponse");
+}
+
+/** Constructs a validated ListOperationResponse model value. */
+export function createListOperationResponse(
+  value: Types.ListOperationResponse,
+): Types.ListOperationResponse {
+  return modelRuntime.validate(value, "ListOperationResponse");
+}
+
+/** Constructs a validated ListBranchResponse model value. */
+export function createListBranchResponse(
+  value: Types.ListBranchResponse,
+): Types.ListBranchResponse {
+  return modelRuntime.validate(value, "ListBranchResponse");
+}
+
+/** Constructs a validated CreateBranchResponse model value. */
+export function createCreateBranchResponse(
+  value: Types.CreateBranchResponse,
+): Types.CreateBranchResponse {
+  return modelRuntime.validate(value, "CreateBranchResponse");
+}
+
+/** Constructs a validated GetBranchResponse model value. */
+export function createGetBranchResponse(value: Types.GetBranchResponse): Types.GetBranchResponse {
+  return modelRuntime.validate(value, "GetBranchResponse");
+}
+
+/** Constructs a validated GetConsumptionHistoryPerProjectResponse model value. */
+export function createGetConsumptionHistoryPerProjectResponse(
+  value: Types.GetConsumptionHistoryPerProjectResponse,
+): Types.GetConsumptionHistoryPerProjectResponse {
+  return modelRuntime.validate(value, "GetConsumptionHistoryPerProjectResponse");
+}
+
+/** Constructs a validated GetConsumptionHistoryPerProjectV2Response model value. */
+export function createGetConsumptionHistoryPerProjectV2Response(
+  value: Types.GetConsumptionHistoryPerProjectV2Response,
+): Types.GetConsumptionHistoryPerProjectV2Response {
+  return modelRuntime.validate(value, "GetConsumptionHistoryPerProjectV2Response");
+}
+
+/** Constructs a validated GetConsumptionHistoryPerBranchV2Response model value. */
+export function createGetConsumptionHistoryPerBranchV2Response(
+  value: Types.GetConsumptionHistoryPerBranchV2Response,
+): Types.GetConsumptionHistoryPerBranchV2Response {
+  return modelRuntime.validate(value, "GetConsumptionHistoryPerBranchV2Response");
+}
+
+/** Constructs a validated ListOrganizationsMembersResponse model value. */
+export function createListOrganizationsMembersResponse(
+  value: Types.ListOrganizationsMembersResponse,
+): Types.ListOrganizationsMembersResponse {
+  return modelRuntime.validate(value, "ListOrganizationsMembersResponse");
+}
+
+/** Constructs a validated RestoreSnapshotResponse model value. */
+export function createRestoreSnapshotResponse(
+  value: Types.RestoreSnapshotResponse,
+): Types.RestoreSnapshotResponse {
+  return modelRuntime.validate(value, "RestoreSnapshotResponse");
+}
+
+/** Constructs a validated ListFunctionsResponse model value. */
+export function createListFunctionsResponse(
+  value: Types.ListFunctionsResponse,
+): Types.ListFunctionsResponse {
+  return modelRuntime.validate(value, "ListFunctionsResponse");
+}
+
+/** Constructs a validated ListFunctionsCustomDomainsResponse model value. */
+export function createListFunctionsCustomDomainsResponse(
+  value: Types.ListFunctionsCustomDomainsResponse,
+): Types.ListFunctionsCustomDomainsResponse {
+  return modelRuntime.validate(value, "ListFunctionsCustomDomainsResponse");
+}

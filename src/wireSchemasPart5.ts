@@ -4,6 +4,26 @@
 import type { WireSchema } from "./client";
 
 export const wireSchemasPart5: Record<string, WireSchema> = {
+  BranchRecoverResponse: {
+    branch: { wire: "branch", type: "Branch" },
+    endpoints: { wire: "endpoints", type: "Endpoint" },
+  },
+  EndpointOperations: {
+    endpoint: { wire: "endpoint", type: "Endpoint" },
+    operations: { wire: "operations", type: "Operation" },
+  },
+  DatabaseOperations: {
+    database: { wire: "database", type: "Database" },
+    operations: { wire: "operations", type: "Operation" },
+  },
+  RoleOperations: {
+    role: { wire: "role", type: "Role" },
+    operations: { wire: "operations", type: "Operation" },
+  },
+  JWKSCreationOperation: {
+    jwks: { wire: "jwks", type: "JWKS" },
+    operations: { wire: "operations", type: "Operation" },
+  },
   AnnotationResponse: {
     annotation: { wire: "annotation", type: "AnnotationData" },
   },
@@ -31,45 +51,46 @@ export const wireSchemasPart5: Record<string, WireSchema> = {
   NeonFunctionDeploymentResponse: {
     deployment: { wire: "deployment", type: "NeonFunctionDeployment" },
   },
-  "createBranch response": {
-    branch: { wire: "branch", type: "Branch" },
-    endpoints: { wire: "endpoints", type: "Endpoint" },
-    operations: { wire: "operations", type: "Operation" },
-    roles: { wire: "roles", type: "Role" },
-    databases: { wire: "databases", type: "Database" },
-    connectionUris: { wire: "connection_uris", type: "ConnectionDetails" },
-  },
-  "createBranchAnonymized response": {
-    branch: { wire: "branch", type: "Branch" },
-    endpoints: { wire: "endpoints", type: "Endpoint" },
-    operations: { wire: "operations", type: "Operation" },
-    roles: { wire: "roles", type: "Role" },
-    databases: { wire: "databases", type: "Database" },
-    connectionUris: { wire: "connection_uris", type: "ConnectionDetails" },
-  },
-  "listProjects response": {
-    projects: { wire: "projects", type: "ProjectListItem" },
-    unavailableProjectIds: { wire: "unavailable_project_ids" },
-    pagination: { wire: "pagination", type: "Pagination" },
-    applications: { wire: "applications" },
-    integrations: { wire: "integrations" },
-  },
-  "createProject response": {
+  UpdateProjectResponse: {
     project: { wire: "project", type: "Project" },
-    connectionUris: { wire: "connection_uris", type: "ConnectionDetails" },
-    roles: { wire: "roles", type: "Role" },
-    databases: { wire: "databases", type: "Database" },
     operations: { wire: "operations", type: "Operation" },
+  },
+  ListOperationResponse: {
+    operations: { wire: "operations", type: "Operation" },
+    pagination: { wire: "pagination" },
+  },
+  ListBranchResponse: {
+    branches: { wire: "branches", type: "Branch" },
+    annotations: { wire: "annotations" },
+    pagination: { wire: "pagination", type: "CursorPagination" },
+  },
+  GetBranchResponse: {
+    branch: { wire: "branch", type: "Branch" },
+    annotation: { wire: "annotation", type: "AnnotationData" },
+  },
+  GetConsumptionHistoryPerProjectResponse: {
+    projects: { wire: "projects", type: "ConsumptionHistoryPerProject" },
+    pagination: { wire: "pagination" },
+  },
+  GetConsumptionHistoryPerProjectV2Response: {
+    projects: { wire: "projects", type: "ConsumptionHistoryPerProjectV2" },
+    pagination: { wire: "pagination" },
+  },
+  GetConsumptionHistoryPerBranchV2Response: {
+    branches: { wire: "branches", type: "ConsumptionHistoryPerBranchV2" },
+    pagination: { wire: "pagination" },
+  },
+  ListOrganizationsMembersResponse: {
+    members: { wire: "members", type: "MemberWithUser" },
+    pagination: { wire: "pagination", type: "CursorPagination" },
+  },
+  RestoreSnapshotResponse: {
     branch: { wire: "branch", type: "Branch" },
     endpoints: { wire: "endpoints", type: "Endpoint" },
+    operations: { wire: "operations", type: "Operation" },
   },
-  "listSharedProjects response": {
-    projects: { wire: "projects", type: "ProjectListItem" },
-    unavailableProjectIds: { wire: "unavailable_project_ids" },
-    pagination: { wire: "pagination", type: "Pagination" },
-  },
-  "listFunctionsCustomDomains response": {
-    customDomains: { wire: "custom_domains", type: "CustomDomain" },
+  ListFunctionsResponse: {
+    functions: { wire: "functions", type: "NeonFunction" },
     pagination: { wire: "pagination", type: "CursorPagination" },
   },
 };

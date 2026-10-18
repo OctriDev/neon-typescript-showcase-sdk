@@ -172,7 +172,7 @@ export const modelSchemasPart002: readonly (readonly [string, RuntimeSchema])[] 
   [
     "DataAPIReponse",
     parseRuntimeSchema(
-      '{"type":"object","required":["url","status"],"properties":{"url":{"type":"string","format":"uri"},"status":{"type":"string"},"settings":{"type":"object","nullable":true,"allOf":[{"ref":"DataAPISettings"}]},"availableSchemas":{"type":"array","nullable":true,"items":{"type":"string"}},"observedAt":{"type":"string","format":"date-time"}}}',
+      '{"type":"object","required":["url","status"],"properties":{"url":{"type":"string","format":"uri"},"status":{"type":"string"},"settings":{"ref":"DataAPISettings"},"availableSchemas":{"type":"array","nullable":true,"items":{"type":"string"}},"observedAt":{"type":"string","format":"date-time"}}}',
     ),
   ],
 
@@ -446,9 +446,23 @@ export const modelSchemasPart002: readonly (readonly [string, RuntimeSchema])[] 
   ],
 
   [
+    "SharedEmailServer",
+    parseRuntimeSchema(
+      '{"type":"object","properties":{"senderEmail":{"type":"string"},"senderName":{"type":"string"},"type":{"type":"string","enum":["shared"]}}}',
+    ),
+  ],
+
+  [
+    "StandardEmailServer",
+    parseRuntimeSchema(
+      '{"type":"object","properties":{"host":{"type":"string"},"port":{"type":"integer"},"username":{"type":"string"},"password":{"type":"string"},"senderEmail":{"type":"string"},"senderName":{"type":"string"},"type":{"type":"string","enum":["standard"]}}}',
+    ),
+  ],
+
+  [
     "StandardEmailServerResponse",
     parseRuntimeSchema(
-      '{"type":"object","required":["host","port","username","password","senderEmail","senderName"],"properties":{"host":{"type":"string"},"port":{"type":"integer"},"username":{"type":"string"},"password":{"type":"string"},"senderEmail":{"type":"string"},"senderName":{"type":"string"}}}',
+      '{"type":"object","required":["host","port","username","password","senderEmail","senderName"],"properties":{"host":{"type":"string"},"port":{"type":"integer"},"username":{"type":"string"},"password":{"type":"string"},"senderEmail":{"type":"string"},"senderName":{"type":"string"},"type":{"type":"string","enum":["standard"]}}}',
     ),
   ],
 
@@ -678,20 +692,6 @@ export const modelSchemasPart002: readonly (readonly [string, RuntimeSchema])[] 
     "ProjectBranchLogFieldValuesResponse",
     parseRuntimeSchema(
       '{"type":"object","required":["values","isTruncated"],"properties":{"values":{"type":"array","items":{"type":"string"}},"isTruncated":{"type":"boolean"}}}',
-    ),
-  ],
-
-  [
-    "BranchAiGateway",
-    parseRuntimeSchema(
-      '{"type":"object","required":["enabled","baseUrl"],"properties":{"enabled":{"type":"boolean"},"baseUrl":{"type":"string","format":"uri"}}}',
-    ),
-  ],
-
-  [
-    "BranchAiGatewayNotEnabled",
-    parseRuntimeSchema(
-      '{"type":"object","required":["code","message","reason"],"properties":{"code":{"type":"string"},"message":{"type":"string"},"reason":{"type":"string"}}}',
     ),
   ],
 ];

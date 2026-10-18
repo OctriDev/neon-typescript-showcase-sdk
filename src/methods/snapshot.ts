@@ -3,13 +3,12 @@
 
 import {
   BackupSchedule,
-  EndpointsOptionalResponse,
+  RestoreSnapshotResponse,
   Snapshot,
   SnapshotUpdateRequest,
 } from "../types/snapshot";
 import { Operation } from "../types/shared-operation";
 import { EmptyResponse, GeneralError, OperationsResponse } from "../types/shared";
-import { BranchResponse } from "../types/shared-branch";
 import { decodeResponseEnums } from "../response-enum-validation";
 import type { ClientConfig, RequestOptions } from "../client";
 import { encodePathSegment, fromWire, queryValue, sdkDecode, sdkRequest, toWire } from "../client";
@@ -248,12 +247,12 @@ export async function restoreSnapshot(
   config: ClientConfig,
   { projectId, snapshotId, name, name_2, targetBranchId, finalizeRestore }: RestoreSnapshotParams,
   requestOptions?: RequestOptions,
-): Promise<BranchResponse & EndpointsOptionalResponse & OperationsResponse> {
+): Promise<RestoreSnapshotResponse> {
   validatePattern("project_id", projectId, "^[a-z0-9-]{1,60}$");
 
   validatePattern("snapshot_id", snapshotId, "^[a-z0-9-]{1,60}$");
 
-  const _resp = await sdkRequest<BranchResponse & EndpointsOptionalResponse & OperationsResponse>({
+  const _resp = await sdkRequest<RestoreSnapshotResponse>({
     method: "POST",
     path: `/projects/${encodePathSegment(projectId)}/snapshots/${encodePathSegment(snapshotId)}/restore`,
     operationId: "restoreSnapshot",
@@ -270,14 +269,13 @@ export async function restoreSnapshot(
     },
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, {
-      allOf: [
-        { ref: "BranchResponse" },
-        { ref: "EndpointsOptionalResponse" },
-        { ref: "OperationsResponse" },
-      ],
-    }),
+  return sdkDecode(
+    _resp,
+    () =>
+      fromWire(
+        decodeResponseEnums(_resp.data, { ref: "RestoreSnapshotResponse" }),
+        "RestoreSnapshotResponse",
+      ) as RestoreSnapshotResponse,
   );
 }
 

@@ -8,6 +8,8 @@ import type {
   ApiKeysListResponseItem,
 } from "./shared-api";
 
+import type { CursorPaginationResponse } from "./shared-cursor";
+
 import type { VPCEndpoint } from "./shared-vpcendpoint";
 
 /**
@@ -39,6 +41,9 @@ export interface Invitation {
    */
   role: MemberRole;
 }
+
+export type ListOrganizationsMembersResponse = OrganizationMembersResponse &
+  CursorPaginationResponse;
 
 /**
  * Typed representation of the `Member` API schema.

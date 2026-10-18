@@ -7,6 +7,20 @@ const parseRuntimeSchema = (source: string): RuntimeSchema => JSON.parse(source)
 
 export const modelSchemasPart003: readonly (readonly [string, RuntimeSchema])[] = [
   [
+    "BranchAiGateway",
+    parseRuntimeSchema(
+      '{"type":"object","required":["enabled","baseUrl"],"properties":{"enabled":{"type":"boolean"},"baseUrl":{"type":"string","format":"uri"}}}',
+    ),
+  ],
+
+  [
+    "BranchAiGatewayNotEnabled",
+    parseRuntimeSchema(
+      '{"type":"object","required":["code","message","reason"],"properties":{"code":{"type":"string"},"message":{"type":"string"},"reason":{"type":"string"}}}',
+    ),
+  ],
+
+  [
     "BucketObject",
     parseRuntimeSchema(
       '{"type":"object","required":["key","size","lastModified","etag"],"properties":{"key":{"type":"string"},"size":{"type":"integer"},"lastModified":{"type":"string","format":"date-time"},"etag":{"type":"string"}}}',
@@ -86,7 +100,7 @@ export const modelSchemasPart003: readonly (readonly [string, RuntimeSchema])[] 
   [
     "NeonFunction",
     parseRuntimeSchema(
-      '{"type":"object","required":["id","slug","name","invocationUrl","createdAt"],"properties":{"id":{"type":"string"},"slug":{"type":"string"},"name":{"type":"string"},"invocationUrl":{"type":"string"},"currentDeployment":{"allOf":[{"ref":"NeonFunctionDeployment"}]},"activeDeployment":{"allOf":[{"ref":"NeonFunctionDeployment"}]},"createdAt":{"type":"string"}}}',
+      '{"type":"object","required":["id","slug","name","invocationUrl","createdAt"],"properties":{"id":{"type":"string"},"slug":{"type":"string"},"name":{"type":"string"},"invocationUrl":{"type":"string"},"currentDeployment":{"ref":"NeonFunctionDeployment"},"activeDeployment":{"ref":"NeonFunctionDeployment"},"createdAt":{"type":"string"}}}',
     ),
   ],
 

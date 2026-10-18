@@ -212,11 +212,11 @@ export const wireSchemasPart2: Record<string, WireSchema> = {
     preloadLibraries: { wire: "preload_libraries", type: "PreloadLibraries" },
   },
   ProjectQuota: {
-    activeTimeSeconds: { wire: "active_time_seconds" },
-    computeTimeSeconds: { wire: "compute_time_seconds" },
-    writtenDataBytes: { wire: "written_data_bytes" },
+    activeTimeSeconds: { wire: "active_time_seconds", number: true },
+    computeTimeSeconds: { wire: "compute_time_seconds", number: true },
+    writtenDataBytes: { wire: "written_data_bytes", number: true },
     dataTransferBytes: { wire: "data_transfer_bytes" },
-    logicalSizeBytes: { wire: "logical_size_bytes" },
+    logicalSizeBytes: { wire: "logical_size_bytes", number: true },
   },
   DefaultEndpointSettings: {
     pgSettings: { wire: "pg_settings" },

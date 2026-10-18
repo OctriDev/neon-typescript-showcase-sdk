@@ -99,6 +99,39 @@ export const wireSchemasPart4: Record<string, WireSchema> = {
   CustomDomainsListResponse: {
     customDomains: { wire: "custom_domains", type: "CustomDomain" },
   },
+  ListProjectsResponse: {
+    projects: { wire: "projects", type: "ProjectListItem" },
+    unavailableProjectIds: { wire: "unavailable_project_ids" },
+    pagination: { wire: "pagination" },
+    applications: { wire: "applications" },
+    integrations: { wire: "integrations" },
+  },
+  CreateProjectResponse: {
+    project: { wire: "project", type: "Project" },
+    connectionUris: { wire: "connection_uris", type: "ConnectionDetails" },
+    roles: { wire: "roles", type: "Role" },
+    databases: { wire: "databases", type: "Database" },
+    operations: { wire: "operations", type: "Operation" },
+    branch: { wire: "branch", type: "Branch" },
+    endpoints: { wire: "endpoints", type: "Endpoint" },
+  },
+  ListSharedProjectsResponse: {
+    projects: { wire: "projects", type: "ProjectListItem" },
+    unavailableProjectIds: { wire: "unavailable_project_ids" },
+    pagination: { wire: "pagination" },
+  },
+  CreateBranchResponse: {
+    branch: { wire: "branch", type: "Branch" },
+    endpoints: { wire: "endpoints", type: "Endpoint" },
+    operations: { wire: "operations", type: "Operation" },
+    roles: { wire: "roles", type: "Role" },
+    databases: { wire: "databases", type: "Database" },
+    connectionUris: { wire: "connection_uris", type: "ConnectionDetails" },
+  },
+  ListFunctionsCustomDomainsResponse: {
+    customDomains: { wire: "custom_domains", type: "CustomDomain" },
+    pagination: { wire: "pagination", type: "CursorPagination" },
+  },
   ProjectJWKSResponse: {
     jwks: { wire: "jwks", type: "JWKS" },
   },
@@ -204,26 +237,6 @@ export const wireSchemasPart4: Record<string, WireSchema> = {
   },
   BranchOperations: {
     branch: { wire: "branch", type: "Branch" },
-    operations: { wire: "operations", type: "Operation" },
-  },
-  BranchRecoverResponse: {
-    branch: { wire: "branch", type: "Branch" },
-    endpoints: { wire: "endpoints", type: "Endpoint" },
-  },
-  EndpointOperations: {
-    endpoint: { wire: "endpoint", type: "Endpoint" },
-    operations: { wire: "operations", type: "Operation" },
-  },
-  DatabaseOperations: {
-    database: { wire: "database", type: "Database" },
-    operations: { wire: "operations", type: "Operation" },
-  },
-  RoleOperations: {
-    role: { wire: "role", type: "Role" },
-    operations: { wire: "operations", type: "Operation" },
-  },
-  JWKSCreationOperation: {
-    jwks: { wire: "jwks", type: "JWKS" },
     operations: { wire: "operations", type: "Operation" },
   },
 };
