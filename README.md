@@ -90,7 +90,7 @@ Pagination follows the cursor, offset, page-number, or next-URL contract declare
 ## Project layout and API discovery
 
 - Operation implementations are grouped under `src/methods/`.
-- 304 component models are split by API domain under `src/types/<domain>.ts` or `src/types/<tag path>/models.ts`, re-exported by `src/types/index.ts` and the package root.
+- 319 component models are split by API domain under `src/types/<domain>.ts` or `src/types/<tag path>/models.ts`, re-exported by `src/types/index.ts` and the package root.
 - Component schemas can choose a nested model folder with `x-octri-sdk-tags: ["Billing/Invoices"]`; the first tag owns the model and `/` creates nesting. This specification assigns 13 models explicitly.
 - [`sdk-manifest.json`](sdk-manifest.json) is the language-neutral public API index: operations, request/response modes, model properties, enum values, and generation settings.
 - Public barrel/module exports are the compatibility boundary. Import public model names from those exports; internal domain filenames may evolve without changing model names.

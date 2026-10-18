@@ -3,16 +3,15 @@
 
 import {
   ConsumptionHistoryGranularity,
-  ConsumptionHistoryPerBranchV2Response,
-  ConsumptionHistoryPerProjectResponse,
-  ConsumptionHistoryPerProjectV2Response,
   ConsumptionHistoryQueryMetrics,
+  GetConsumptionHistoryPerBranchV2Response,
+  GetConsumptionHistoryPerProjectResponse,
+  GetConsumptionHistoryPerProjectV2Response,
 } from "../types/consumption";
-import { PaginationResponse } from "../types/shared-pagination";
 import { GeneralError } from "../types/shared";
 import { decodeResponseEnums } from "../response-enum-validation";
 import type { ClientConfig, RequestOptions } from "../client";
-import { queryValue, sdkDecode, sdkRequest } from "../client";
+import { fromWire, queryValue, sdkDecode, sdkRequest } from "../client";
 import { validateDateTime, validateItems, validatePattern, validateRange } from "../validation";
 
 export type GetConsumptionHistoryPerProjectError = GeneralError;
@@ -96,7 +95,7 @@ export async function getConsumptionHistoryPerProject(
     metrics,
   }: GetConsumptionHistoryPerProjectParams,
   requestOptions?: RequestOptions,
-): Promise<ConsumptionHistoryPerProjectResponse & PaginationResponse> {
+): Promise<GetConsumptionHistoryPerProjectResponse> {
   validateDateTime("from", from);
 
   validateDateTime("to", to);
@@ -113,7 +112,7 @@ export async function getConsumptionHistoryPerProject(
     validatePattern("org_id", orgId, "^[a-z0-9-]{1,60}$");
   }
 
-  const _resp = await sdkRequest<ConsumptionHistoryPerProjectResponse & PaginationResponse>({
+  const _resp = await sdkRequest<GetConsumptionHistoryPerProjectResponse>({
     method: "GET",
     path: `/consumption_history/projects`,
     operationId: "getConsumptionHistoryPerProject",
@@ -139,10 +138,13 @@ export async function getConsumptionHistoryPerProject(
     },
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, {
-      allOf: [{ ref: "ConsumptionHistoryPerProjectResponse" }, { ref: "PaginationResponse" }],
-    }),
+  return sdkDecode(
+    _resp,
+    () =>
+      fromWire(
+        decodeResponseEnums(_resp.data, { ref: "GetConsumptionHistoryPerProjectResponse" }),
+        "GetConsumptionHistoryPerProjectResponse",
+      ) as GetConsumptionHistoryPerProjectResponse,
   );
 }
 
@@ -217,7 +219,7 @@ export async function getConsumptionHistoryPerProjectV2(
     projectIds,
   }: GetConsumptionHistoryPerProjectV2Params,
   requestOptions?: RequestOptions,
-): Promise<ConsumptionHistoryPerProjectV2Response & PaginationResponse> {
+): Promise<GetConsumptionHistoryPerProjectV2Response> {
   validateDateTime("from", from);
 
   validateDateTime("to", to);
@@ -232,7 +234,7 @@ export async function getConsumptionHistoryPerProjectV2(
     validateItems("project_ids", projectIds, { min: 0, max: 100 });
   }
 
-  const _resp = await sdkRequest<ConsumptionHistoryPerProjectV2Response & PaginationResponse>({
+  const _resp = await sdkRequest<GetConsumptionHistoryPerProjectV2Response>({
     method: "GET",
     path: `/consumption_history/v2/projects`,
     operationId: "getConsumptionHistoryPerProjectV2",
@@ -257,10 +259,13 @@ export async function getConsumptionHistoryPerProjectV2(
     },
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, {
-      allOf: [{ ref: "ConsumptionHistoryPerProjectV2Response" }, { ref: "PaginationResponse" }],
-    }),
+  return sdkDecode(
+    _resp,
+    () =>
+      fromWire(
+        decodeResponseEnums(_resp.data, { ref: "GetConsumptionHistoryPerProjectV2Response" }),
+        "GetConsumptionHistoryPerProjectV2Response",
+      ) as GetConsumptionHistoryPerProjectV2Response,
   );
 }
 
@@ -342,7 +347,7 @@ export async function getConsumptionHistoryPerBranchV2(
     branchIds,
   }: GetConsumptionHistoryPerBranchV2Params,
   requestOptions?: RequestOptions,
-): Promise<ConsumptionHistoryPerBranchV2Response & PaginationResponse> {
+): Promise<GetConsumptionHistoryPerBranchV2Response> {
   validateItems("project_ids", projectIds, { min: 1, max: 100 });
 
   validateDateTime("from", from);
@@ -359,7 +364,7 @@ export async function getConsumptionHistoryPerBranchV2(
     validateItems("branch_ids", branchIds, { min: 0, max: 100 });
   }
 
-  const _resp = await sdkRequest<ConsumptionHistoryPerBranchV2Response & PaginationResponse>({
+  const _resp = await sdkRequest<GetConsumptionHistoryPerBranchV2Response>({
     method: "GET",
     path: `/consumption_history/v2/branches`,
     operationId: "getConsumptionHistoryPerBranchV2",
@@ -385,10 +390,13 @@ export async function getConsumptionHistoryPerBranchV2(
     },
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, {
-      allOf: [{ ref: "ConsumptionHistoryPerBranchV2Response" }, { ref: "PaginationResponse" }],
-    }),
+  return sdkDecode(
+    _resp,
+    () =>
+      fromWire(
+        decodeResponseEnums(_resp.data, { ref: "GetConsumptionHistoryPerBranchV2Response" }),
+        "GetConsumptionHistoryPerBranchV2Response",
+      ) as GetConsumptionHistoryPerBranchV2Response,
   );
 }
 

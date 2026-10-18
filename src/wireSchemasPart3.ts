@@ -105,6 +105,7 @@ export const wireSchemasPart3: Record<string, WireSchema> = {
   SharedEmailServer: {
     senderEmail: { wire: "sender_email" },
     senderName: { wire: "sender_name" },
+    ["type"]: { wire: "type" },
   },
   StandardEmailServer: {
     host: { wire: "host" },
@@ -113,6 +114,7 @@ export const wireSchemasPart3: Record<string, WireSchema> = {
     password: { wire: "password" },
     senderEmail: { wire: "sender_email" },
     senderName: { wire: "sender_name" },
+    ["type"]: { wire: "type" },
   },
   StandardEmailServerResponse: {
     host: { wire: "host" },
@@ -121,6 +123,7 @@ export const wireSchemasPart3: Record<string, WireSchema> = {
     password: { wire: "password" },
     senderEmail: { wire: "sender_email" },
     senderName: { wire: "sender_name" },
+    ["type"]: { wire: "type" },
   },
   SendNeonAuthTestEmailRequest: {
     host: { wire: "host" },

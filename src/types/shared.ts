@@ -327,6 +327,10 @@ export interface SharedEmailServer {
    * Display name shown as the sender in outgoing emails.
    */
   senderName?: string;
+  /**
+   * Optional enumerated value serialized in the `type` wire field.
+   */
+  type?: "shared";
 }
 
 export type SuspendTimeoutSeconds = number;

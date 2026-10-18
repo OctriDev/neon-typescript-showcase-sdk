@@ -1360,10 +1360,17 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
     required: ["id"],
     properties: { id: { ref: "NeonAuthOauthProviderId" } },
   },
+  SharedEmailServer: { type: "object", properties: { type: { type: "string", enum: ["shared"] } } },
+  StandardEmailServer: {
+    type: "object",
+    properties: { type: { type: "string", enum: ["standard"] } },
+  },
   StandardEmailServerResponse: {
     type: "object",
     required: ["host", "port", "username", "password", "senderEmail", "senderName"],
+    properties: { type: { type: "string", enum: ["standard"] } },
   },
+  NeonAuthEmailServerConfig: { ref: "NeonAuthEmailServerConfig" },
   NeonAuthEmailServerConfigResponse: { ref: "NeonAuthEmailServerConfigResponse" },
   SendNeonAuthTestEmailRequest: {
     type: "object",
@@ -1701,8 +1708,8 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
     type: "object",
     required: ["id", "slug", "name", "invocationUrl", "createdAt"],
     properties: {
-      currentDeployment: { allOf: [{ ref: "NeonFunctionDeployment" }] },
-      activeDeployment: { allOf: [{ ref: "NeonFunctionDeployment" }] },
+      currentDeployment: { ref: "NeonFunctionDeployment" },
+      activeDeployment: { ref: "NeonFunctionDeployment" },
     },
   },
   NeonFunctionDeployment: {
@@ -1866,6 +1873,21 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
     required: ["deployment"],
     properties: { deployment: { ref: "NeonFunctionDeployment" } },
   },
+  ListProjectsResponse: { ref: "ListProjectsResponse" },
+  CreateProjectResponse: { ref: "CreateProjectResponse" },
+  ListSharedProjectsResponse: { ref: "ListSharedProjectsResponse" },
+  UpdateProjectResponse: { ref: "UpdateProjectResponse" },
+  ListOperationResponse: { ref: "ListOperationResponse" },
+  ListBranchResponse: { ref: "ListBranchResponse" },
+  CreateBranchResponse: { ref: "CreateBranchResponse" },
+  GetBranchResponse: { ref: "GetBranchResponse" },
+  GetConsumptionHistoryPerProjectResponse: { ref: "GetConsumptionHistoryPerProjectResponse" },
+  GetConsumptionHistoryPerProjectV2Response: { ref: "GetConsumptionHistoryPerProjectV2Response" },
+  GetConsumptionHistoryPerBranchV2Response: { ref: "GetConsumptionHistoryPerBranchV2Response" },
+  ListOrganizationsMembersResponse: { ref: "ListOrganizationsMembersResponse" },
+  RestoreSnapshotResponse: { ref: "RestoreSnapshotResponse" },
+  ListFunctionsResponse: { ref: "ListFunctionsResponse" },
+  ListFunctionsCustomDomainsResponse: { ref: "ListFunctionsCustomDomainsResponse" },
 };
 
 const isRecord = (value: unknown): value is RuntimeRecord =>

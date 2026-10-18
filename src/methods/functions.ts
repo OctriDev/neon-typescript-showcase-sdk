@@ -4,19 +4,18 @@
 import {
   CustomDomain,
   CustomDomainRegisterRequest,
-  CustomDomainsListResponse,
   FunctionDeployRequest,
+  ListFunctionsCustomDomainsResponse,
+  ListFunctionsResponse,
   NeonFunctionDeploymentResponse,
   NeonFunctionResponse,
   NeonFunctionUpdateRequest,
-  NeonFunctionsListResponse,
   TriggerCreateRequest,
   TriggerID,
   TriggerResponse,
   TriggerUpdateRequest,
   TriggersListResponse,
 } from "../types/functions";
-import { CursorPaginationResponse } from "../types/shared-cursor";
 import { GeneralError } from "../types/shared";
 import { decodeResponseEnums } from "../response-enum-validation";
 import type { ClientConfig, RequestOptions } from "../client";
@@ -47,7 +46,7 @@ export async function listFunctions(
   config: ClientConfig,
   { projectId, branchId, cursor, limit }: ListFunctionsParams,
   requestOptions?: RequestOptions,
-): Promise<NeonFunctionsListResponse & CursorPaginationResponse> {
+): Promise<ListFunctionsResponse> {
   validatePattern("project_id", projectId, "^[a-z0-9-]{1,60}$");
 
   validatePattern("branch_id", branchId, "^[a-z0-9-]{1,60}$");
@@ -56,7 +55,7 @@ export async function listFunctions(
     validateRange("limit", limit, { min: 1, max: 1000 });
   }
 
-  const _resp = await sdkRequest<NeonFunctionsListResponse & CursorPaginationResponse>({
+  const _resp = await sdkRequest<ListFunctionsResponse>({
     method: "GET",
     path: `/projects/${encodePathSegment(projectId)}/branches/${encodePathSegment(branchId)}/functions`,
     operationId: "listFunctions",
@@ -69,8 +68,13 @@ export async function listFunctions(
     },
     config,
   });
-  return sdkDecode(_resp, () =>
-    decodeResponseEnums(_resp.data, { allOf: [{ ref: "NeonFunctionsListResponse" }] }),
+  return sdkDecode(
+    _resp,
+    () =>
+      fromWire(
+        decodeResponseEnums(_resp.data, { ref: "ListFunctionsResponse" }),
+        "ListFunctionsResponse",
+      ) as ListFunctionsResponse,
   );
 }
 
@@ -573,7 +577,7 @@ export async function listFunctionsCustomDomains(
   config: ClientConfig,
   { projectId, branchId, cursor, limit }: ListFunctionsCustomDomainsParams,
   requestOptions?: RequestOptions,
-): Promise<CustomDomainsListResponse & CursorPaginationResponse> {
+): Promise<ListFunctionsCustomDomainsResponse> {
   validatePattern("project_id", projectId, "^[a-z0-9-]{1,60}$");
 
   validatePattern("branch_id", branchId, "^[a-z0-9-]{1,60}$");
@@ -582,7 +586,7 @@ export async function listFunctionsCustomDomains(
     validateRange("limit", limit, { min: 1, max: 1000 });
   }
 
-  const _resp = await sdkRequest<CustomDomainsListResponse & CursorPaginationResponse>({
+  const _resp = await sdkRequest<ListFunctionsCustomDomainsResponse>({
     method: "GET",
     path: `/projects/${encodePathSegment(projectId)}/branches/${encodePathSegment(branchId)}/custom-domains`,
     operationId: "listFunctionsCustomDomains",
@@ -599,9 +603,9 @@ export async function listFunctionsCustomDomains(
     _resp,
     () =>
       fromWire(
-        decodeResponseEnums(_resp.data, { allOf: [{ ref: "CustomDomainsListResponse" }] }),
-        "listFunctionsCustomDomains response",
-      ) as CustomDomainsListResponse & CursorPaginationResponse,
+        decodeResponseEnums(_resp.data, { ref: "ListFunctionsCustomDomainsResponse" }),
+        "ListFunctionsCustomDomainsResponse",
+      ) as ListFunctionsCustomDomainsResponse,
   );
 }
 

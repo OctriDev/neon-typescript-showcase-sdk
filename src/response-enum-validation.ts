@@ -321,6 +321,16 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
   },
   ConsumptionMetricValue: { type: "object", required: ["metric_name", "value"] },
   CreateBranchNeonAuthNewUserRequest: { type: "object", required: ["email"] },
+  CreateBranchResponse: {
+    allOf: [
+      { ref: "BranchResponse" },
+      { ref: "EndpointsResponse" },
+      { ref: "OperationsResponse" },
+      { ref: "RolesResponse" },
+      { ref: "DatabasesResponse" },
+      { ref: "ConnectionURIsOptionalResponse" },
+    ],
+  },
   CreateCredentialRequest: { type: "object", required: ["scopes", "principal_type"] },
   CreateCredentialResponse: {
     type: "object",
@@ -332,6 +342,17 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
       "scopes",
       "branch_id",
       "created_at",
+    ],
+  },
+  CreateProjectResponse: {
+    allOf: [
+      { ref: "ProjectResponse" },
+      { ref: "ConnectionURIsResponse" },
+      { ref: "RolesResponse" },
+      { ref: "DatabasesResponse" },
+      { ref: "OperationsResponse" },
+      { ref: "BranchResponse" },
+      { ref: "EndpointsResponse" },
     ],
   },
   CredentialMeta: {
@@ -447,6 +468,16 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
   FunctionTriggerSchedule: { type: "object", required: ["cron"] },
   FunctionTriggerStorageObjectCreated: { type: "object", required: ["bucket_name"] },
   GeneralError: { type: "object", required: ["message", "code"] },
+  GetBranchResponse: { allOf: [{ ref: "BranchResponse" }, { ref: "AnnotationResponse" }] },
+  GetConsumptionHistoryPerBranchV2Response: {
+    allOf: [{ ref: "ConsumptionHistoryPerBranchV2Response" }, { ref: "PaginationResponse" }],
+  },
+  GetConsumptionHistoryPerProjectResponse: {
+    allOf: [{ ref: "ConsumptionHistoryPerProjectResponse" }, { ref: "PaginationResponse" }],
+  },
+  GetConsumptionHistoryPerProjectV2Response: {
+    allOf: [{ ref: "ConsumptionHistoryPerProjectV2Response" }, { ref: "PaginationResponse" }],
+  },
   GrantPermissionToProjectRequest: { type: "object", required: ["email"] },
   Invitation: {
     type: "object",
@@ -468,11 +499,14 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
       },
     },
   },
+  ListBranchResponse: { allOf: [{ ref: "BranchesResponse" }, { ref: "AnnotationsMapResponse" }] },
   ListCredentialsResponse: {
     type: "object",
     required: ["credentials"],
     properties: { credentials: { type: "array", items: { ref: "CredentialMeta" } } },
   },
+  ListFunctionsCustomDomainsResponse: { allOf: [{ ref: "CustomDomainsListResponse" }] },
+  ListFunctionsResponse: { allOf: [{ ref: "NeonFunctionsListResponse" }] },
   ListNeonAuthIntegrationsResponse: {
     type: "object",
     required: ["data"],
@@ -487,6 +521,19 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
     type: "object",
     required: ["providers"],
     properties: { providers: { type: "array", items: { ref: "NeonAuthOauthProvider" } } },
+  },
+  ListOperationResponse: { allOf: [{ ref: "OperationsResponse" }, { ref: "PaginationResponse" }] },
+  ListOrganizationsMembersResponse: { allOf: [{ ref: "OrganizationMembersResponse" }] },
+  ListProjectsResponse: {
+    allOf: [
+      { ref: "ProjectsResponse" },
+      { ref: "PaginationResponse" },
+      { ref: "ProjectsApplicationsMapResponse" },
+      { ref: "ProjectsIntegrationsMapResponse" },
+    ],
+  },
+  ListSharedProjectsResponse: {
+    allOf: [{ ref: "ProjectsResponse" }, { ref: "PaginationResponse" }],
   },
   MaintenanceWindow: { type: "object", required: ["weekdays", "start_time", "end_time"] },
   MaskingRule: {
@@ -566,9 +613,14 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
       "disable_sign_up",
     ],
   },
+  NeonAuthEmailServerConfig: {
+    type: "object",
+    oneOf: [{ ref: "StandardEmailServer" }, { ref: "SharedEmailServer" }],
+    openTag: ["type", ["standard", "shared"]],
+  },
   NeonAuthEmailServerConfigResponse: {
     type: "object",
-    oneOf: [{ ref: "StandardEmailServerResponse" }, { type: "object" }],
+    oneOf: [{ ref: "StandardEmailServerResponse" }, { ref: "SharedEmailServer" }],
     openTag: ["type", ["standard", "shared"]],
   },
   NeonAuthIntegration: {
@@ -661,8 +713,8 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
     type: "object",
     required: ["id", "slug", "name", "invocation_url", "created_at"],
     properties: {
-      current_deployment: { allOf: [{ ref: "NeonFunctionDeployment" }] },
-      active_deployment: { allOf: [{ ref: "NeonFunctionDeployment" }] },
+      current_deployment: { ref: "NeonFunctionDeployment" },
+      active_deployment: { ref: "NeonFunctionDeployment" },
     },
   },
   NeonFunctionDeployment: {
@@ -890,6 +942,13 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
     type: "object",
     required: ["region_id", "name", "default", "geo_lat", "geo_long"],
   },
+  RestoreSnapshotResponse: {
+    allOf: [
+      { ref: "BranchResponse" },
+      { ref: "EndpointsOptionalResponse" },
+      { ref: "OperationsResponse" },
+    ],
+  },
   Role: { type: "object", required: ["branch_id", "name", "created_at", "updated_at"] },
   RoleCreateRequest: {
     type: "object",
@@ -968,6 +1027,7 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
   },
   SendNeonAuthTestEmailResponse: { type: "object", required: ["success"] },
   SetProjectMemberRoleRequest: { type: "object", required: ["role"] },
+  SharedEmailServer: { type: "object", properties: { type: { type: "string", enum: ["shared"] } } },
   Snapshot: { type: "object", required: ["id", "name", "created_at"] },
   SnapshotUpdateRequest: { type: "object", required: ["snapshot"] },
   SpendingLimitResponse: {
@@ -976,9 +1036,14 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
     nullableRequired: ["spending_limit_cents"],
   },
   SpendingLimitUpdateRequest: { type: "object", required: ["spending_limit_cents"] },
+  StandardEmailServer: {
+    type: "object",
+    properties: { type: { type: "string", enum: ["standard"] } },
+  },
   StandardEmailServerResponse: {
     type: "object",
     required: ["host", "port", "username", "password", "sender_email", "sender_name"],
+    properties: { type: { type: "string", enum: ["standard"] } },
   },
   StorageObjectCreatedTrigger: {
     type: "object",
@@ -1052,6 +1117,7 @@ const modelSchemas: Readonly<Record<string, RuntimeSchema>> = {
   UpdateNeonAuthAllowLocalhostRequest: { type: "object", required: ["allow_localhost"] },
   UpdateNeonAuthUserRoleRequest: { type: "object", required: ["roles"] },
   UpdateNeonAuthUserRoleResponse: { type: "object", required: ["id"] },
+  UpdateProjectResponse: { allOf: [{ ref: "ProjectResponse" }, { ref: "OperationsResponse" }] },
   VPCEndpoint: { type: "object", required: ["vpc_endpoint_id", "label"] },
   VPCEndpointAssignment: { type: "object", required: ["label"] },
   VPCEndpointDetails: {

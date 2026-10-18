@@ -29,6 +29,10 @@ export interface StandardEmailServer {
    * Display name shown as the sender in outgoing emails.
    */
   senderName?: string;
+  /**
+   * Optional enumerated value serialized in the `type` wire field.
+   */
+  type?: "standard";
 }
 
 /**
@@ -59,4 +63,8 @@ export interface StandardEmailServerResponse {
    * Display name shown as the sender in outgoing emails.
    */
   senderName: string;
+  /**
+   * Optional enumerated value serialized in the `type` wire field.
+   */
+  type?: "standard";
 }
