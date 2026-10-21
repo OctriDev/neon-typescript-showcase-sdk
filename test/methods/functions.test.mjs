@@ -27,7 +27,7 @@ import {
   listFunctionsTriggers,
   createFunctionsTrigger,
   getFunctionsTrigger,
-  updateFunctionsTrigger,
+  updateFunctionTrigger,
   deleteFunctionsTrigger,
   registerFunctionsCustomDomain,
   listFunctionsCustomDomains,
@@ -133,12 +133,12 @@ const CALL = {
         triggerId: bag["trigger_id"],
       }),
   },
-  updateFunctionsTrigger: {
-    route: "updateFunctionsTrigger",
+  updateFunctionTrigger: {
+    route: "updateFunctionTrigger",
     endpoint: "PATCH /projects/{project_id}/branches/{branch_id}/triggers/{trigger_id}",
     mediaType: "application/json",
     invoke: (bag) =>
-      updateFunctionsTrigger(config, {
+      updateFunctionTrigger(config, {
         body: bag.__body,
         projectId: bag["project_id"],
         branchId: bag["branch_id"],

@@ -408,9 +408,9 @@ export async function getFunctionsTrigger(
   return sdkDecode(_resp, () => decodeResponseEnums(_resp.data, { ref: "TriggerResponse" }));
 }
 
-export type UpdateFunctionsTriggerError = GeneralError;
+export type UpdateFunctionTriggerError = GeneralError;
 
-export interface UpdateFunctionsTriggerParams {
+export interface UpdateFunctionTriggerParams {
   projectId: string;
   branchId: string;
   triggerId: TriggerID;
@@ -426,9 +426,9 @@ export interface UpdateFunctionsTriggerParams {
  * @param branchId - The Neon branch ID
  * @param triggerId - The opaque, project-wide trigger ID
  */
-export async function updateFunctionsTrigger(
+export async function updateFunctionTrigger(
   config: ClientConfig,
-  { projectId, branchId, triggerId, body }: UpdateFunctionsTriggerParams,
+  { projectId, branchId, triggerId, body }: UpdateFunctionTriggerParams,
   requestOptions?: RequestOptions,
 ): Promise<TriggerResponse> {
   validatePattern("project_id", projectId, "^[a-z0-9-]{1,60}$");
@@ -441,7 +441,7 @@ export async function updateFunctionsTrigger(
   const _resp = await sdkRequest<TriggerResponse>({
     method: "PATCH",
     path: `/projects/${encodePathSegment(projectId)}/branches/${encodePathSegment(branchId)}/triggers/${encodePathSegment(triggerId)}`,
-    operationId: "updateFunctionsTrigger",
+    operationId: "updateFunctionTrigger",
     errors: { default: "GeneralError" },
     responseDecoder: "json",
     ...requestOptions,
@@ -734,10 +734,10 @@ export class FunctionsNamespace {
    * Applies a partial update. The required `type` discriminator must identify the existing trigger kind. The supported types are `schedule` and `storage_object_created`. Editing an inherited trigger creates a child-local shadow with the same `trigger_id`; it remains disabled unless this request explicitly enables it. For a schedule trigger, updating the schedule or enabled state increments `version` and recomputes `next_run_at`. Disabling stops future scheduling but does not cancel occurrences already committed for delivery. For `storage_object_created`, the configuration selects one exact bucket. An omitted object-key prefix matches every key in that bucket; a present prefix is matched byte-for-byte and case-sensitively against the full key, without path normalization or a path-segment boundary. **Note**: This endpoint is currently in Beta.
    */
   updateTrigger(
-    params: UpdateFunctionsTriggerParams,
+    params: UpdateFunctionTriggerParams,
     requestOptions?: RequestOptions,
-  ): ReturnType<typeof updateFunctionsTrigger> {
-    return updateFunctionsTrigger(this._config, params, requestOptions);
+  ): ReturnType<typeof updateFunctionTrigger> {
+    return updateFunctionTrigger(this._config, params, requestOptions);
   }
   /**
    * Deletes a branch-local trigger or writes a branch-local tombstone for an inherited trigger so it does not reappear. Deletion stops future scheduling or storage-event matching but does not cancel invocations already committed for delivery. The supported trigger types are `schedule` and `storage_object_created`. **Note**: This endpoint is currently in Beta.

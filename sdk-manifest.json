@@ -27399,8 +27399,8 @@
       ]
     },
     {
-      "id": "updateFunctionsTrigger",
-      "wireOperationId": "updateFunctionsTrigger",
+      "id": "updateFunctionTrigger",
+      "wireOperationId": "updateFunctionTrigger",
       "method": "patch",
       "path": "/projects/{project_id}/branches/{branch_id}/triggers/{trigger_id}",
       "namespace": ["functions"],
@@ -27412,7 +27412,7 @@
       "publicMethods": [
         {
           "mode": "normal",
-          "name": "updateFunctionsTrigger"
+          "name": "updateFunctionTrigger"
         }
       ],
       "requestModes": [
@@ -50343,7 +50343,7 @@
         ]
       },
       {
-        "id": "updateFunctionsTrigger",
+        "id": "updateFunctionTrigger",
         "method": "patch",
         "path": "/projects/{project_id}/branches/{branch_id}/triggers/{trigger_id}",
         "summary": "Updates a branch trigger using a partial configuration. Set `type` to the existing trigger kind and provide at least one other field to change; supported kinds are `schedule` and `storage_object_created`. Editing an inherited trigger creates a child-local shadow that remains disabled unless you explicitly enable it; disabling a trigger does not cancel occurrences already committed for delivery.",

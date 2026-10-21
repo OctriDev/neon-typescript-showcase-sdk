@@ -15443,7 +15443,7 @@
     }
   },
   {
-    "operationId": "updateFunctionsTrigger",
+    "operationId": "updateFunctionTrigger",
     "summary": "Updates a branch trigger using a partial configuration. Set `type` to the existing trigger kind and provide at least one other field to change; supported kinds are `schedule` and `storage_object_created`. Editing an inherited trigger creates a child-local shadow that remains disabled unless you explicitly enable it; disabling a trigger does not cancel occurrences already committed for delivery.",
     "method": "PATCH",
     "pathTemplate": "/projects/{project_id}/branches/{branch_id}/triggers/{trigger_id}",
