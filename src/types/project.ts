@@ -3,9 +3,7 @@
 
 import type { ConnectionURIsResponse } from "./project-connection";
 
-import type { ProjectListItem } from "./project-project.part001";
-
-import type { ProjectResponse, ProjectRole } from "./project-project.part002";
+import type { ProjectListItem, ProjectResponse, ProjectRole } from "./project-project-shared";
 
 import type {
   ComputeUnit,

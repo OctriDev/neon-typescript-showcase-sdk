@@ -398,7 +398,7 @@ const OPERATION_SECURITY: Readonly<Record<string, readonly (readonly string[])[]
 
   getFunctionsTrigger: [["BearerAuth"], ["CookieAuth"], ["TokenCookieAuth"]],
 
-  updateFunctionsTrigger: [["BearerAuth"], ["CookieAuth"], ["TokenCookieAuth"]],
+  updateFunctionTrigger: [["BearerAuth"], ["CookieAuth"], ["TokenCookieAuth"]],
 
   deleteFunctionsTrigger: [["BearerAuth"], ["CookieAuth"], ["TokenCookieAuth"]],
 
